@@ -1,0 +1,26 @@
+name: My First DevOps Pipeline
+
+# main 브랜치에 코드가 push 시 실행
+on:
+    push:
+        branches: ["main"]
+# 자동화 작업 정의
+jobs:
+    build-and-test:
+        runs-on: ubuntu-latest
+        steps:
+        # 1. 방금 올린 코드를 가져옵니다.
+        - name: Checkout code
+          uses: actions/checkout@v3
+        # 2. 테스트를 흉내 냅니다.
+        - name: Run Test
+          run: |
+            echo "테스트를 시작합니다..."
+            if grep -q "DevOps" index.html; then
+              echo "성공! 파일에 'DevOps'라는 단어가 있습니다."
+            else
+              echo "실패! 단어를 찾을 수 없습니다."
+            fi
+        # 3. 배포를 흉내 냅니다.
+        - name: Deploy
+          run: echo "서버에 자동으로 배포되었습니다!"
